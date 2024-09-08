@@ -15,4 +15,4 @@ const conversationModel =  new mongoose.Schema({
     }]
 }, {timestamps:true})
 
-export const conversation =  mongoose.model("conversation",conversationModel)
+export const Conversation =  mongoose.model("conversation",conversationModel)
