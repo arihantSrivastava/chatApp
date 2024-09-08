@@ -3,6 +3,7 @@ import {User} from '../models/userModer.js'
 import jwt from 'jsonwebtoken'
 export const register = async(req , res) =>{
     try {
+      
         const {fullName ,username ,password,confirmPassword ,  gender} = req.body
       
         if(!fullName || !username || !password || !confirmPassword || !gender){
@@ -92,6 +93,16 @@ export const logout =  (req,res)=>{
         return res.status(200).cookie("token","",{maxAge:0}).json({
             message: "You are logged out Succesfully"
         })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getOtherUsers = async(req,res)=> {
+    try {
+       const loggedInUserId = req.id
+       const otherUsers = await User.find({id:{$ne :loggedInUserId }}).select("-password")
+       return res.status(200).json(otherUsers) 
     } catch (error) {
         console.log(error)
     }
